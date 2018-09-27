@@ -1,0 +1,7 @@
+FROM ortussolutions/commandbox
+COPY . /app
+ENV IMAGE_TESTING_IN_PROGRESS true
+CMD cd $APP_DIR && $BUILD_DIR/run.sh \
+	&& box testbox run runner=docker outputFile=/reports/testresults.txt reporter=Text verbose=no\
+	#&& box task run taskFile=FileCleaner target=clean :infile=/reports/testresults.txt :outfile=/reports/cleanresults.txt \
+	&& box server stop
